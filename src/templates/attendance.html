@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mark Attendance - MWECAU ICT Club</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Mark Attendance</h1>
+            <p class="subtitle">MWECAU ICT Club</p>
+        </header>
+
+        <main>
+            <div class="session-info" id="sessionInfo">
+                <p>Loading session information...</p>
+            </div>
+
+            <!-- Step 1: Enter Registration Number -->
+            <div id="step1" class="form-step">
+                <h3>Step 1: Enter Your Registration Number</h3>
+                <form id="checkMemberForm" class="form">
+                    <div class="form-group">
+                        <label for="regNumber">Registration Number *</label>
+                        <input type="text" id="regNumber" name="reg_number" 
+                               placeholder="e.g., T/DEG/2020/001" required autofocus>
+                        <small>Format: T/(DEG|DIP)/(Year)/(Number)</small>
+                    </div>
+
+                    <div id="step1Message" class="message"></div>
+
+                    <div class="button-group">
+                        <button type="submit" class="btn btn-primary" id="checkBtn">
+                            Continue
+                        </button>
+
+                        <a href="{{ url_for('api.index') }}" class="btn btn-secondary">
+                            Back to Home
+                        </a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Step 2: Enter Session Code (Hidden initially) -->
+            <div id="step2" class="form-step" style="display: none;">
+                <div class="success-box">
+                    <h3>Welcome, <span id="memberName"></span>!</h3>
+                </div>
+
+                <h3>Step 2: Enter Session Code</h3>
+                <form id="attendanceForm" class="form">
+                    <input type="hidden" id="regNumberHidden" name="reg_number">
+
+                    <div class="form-group">
+                        <label for="sessionCode">Session Code *</label>
+                        <input type="text" id="sessionCode" name="session_code" 
+                               placeholder="Get code from department leader" required>
+                        <small>Session code is announced by the leader during the session</small>
+                    </div>
+
+                    <div id="step2Message" class="message"></div>
+
+                    <div class="button-group">
+                        <button type="submit" class="btn btn-success" id="submitBtn">
+                            Mark Attendance
+                        </button>
+
+                        <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                            Start Over
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Success Message (Hidden initially) -->
+            <div id="successMessage" class="success-box" style="display: none;">
+                <h2>Success!</h2>
+                <p>Thank you, <span id="successName"></span>!</p>
+                <p>Your attendance for <span id="successDate"></span> has been recorded.</p>
+                <p><strong>Department:</strong> <span id="successDepartment"></span></p>
+
+                <button class="btn btn-primary" onclick="window.location.href='{{ url_for('api.index') }}'">
+                    Back to Home
+                </button>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 MWECAU ICT Club</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSessionInfo();
+        });
+
+        document.getElementById('checkMemberForm').addEventListener('submit', handleMemberCheck);
+        document.getElementById('attendanceForm').addEventListener('submit', handleAttendance);
+    </script>
+</body>
+</html>

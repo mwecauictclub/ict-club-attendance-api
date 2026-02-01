@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MWECAU ICT Club Attendance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MWECAU ICT CLUB</h1>
+            <p class="subtitle">Attendance Management System</p>
+        </header>
+
+        <main>
+            <div class="session-info" id="sessionInfo">
+                <p>Loading session information...</p>
+            </div>
+
+            <div class="actions">
+                <a href="{{ url_for('api.register_page') }}" class="btn btn-primary">
+                    Register
+                </a>
+                <a href="{{ url_for('api.attendance_page') }}" class="btn btn-success">
+                    Mark Attendance
+                </a>
+            </div>
+
+            <div class="info-box">
+                <h3>How It Works</h3>
+                <ol>
+                    <li><strong>New Members:</strong> Click "Register" to create your account</li>
+                    <li><strong>Existing Members:</strong> Click "Mark Attendance"</li>
+                    <li><strong>Get Session Code:</strong> From department leader during session</li>
+                    <li><strong>Time Window:</strong> Friday 13:00 - Saturday 00:00</li>
+                </ol>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 MWECAU ICT Club | Moshi, Tanzania</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSessionInfo();
+        });
+    </script>
+</body>
+</html>
